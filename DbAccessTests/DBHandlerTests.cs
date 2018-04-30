@@ -23,7 +23,7 @@ namespace DbAccess.Tests
             List<Ingredient> ingredients = handler.GetAllIngredients();
 
             //Assert
-            Assert.
+            //Assert.
         }
     }
 }

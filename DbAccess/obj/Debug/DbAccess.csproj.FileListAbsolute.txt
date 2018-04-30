@@ -1,0 +1,8 @@
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\DbAccess\bin\Debug\DbAccess.dll
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\DbAccess\bin\Debug\DbAccess.pdb
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\DbAccess\bin\Debug\Entities.dll
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\DbAccess\bin\Debug\Entities.pdb
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\DbAccess\obj\Debug\DbAccess.csprojResolveAssemblyReference.cache
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\DbAccess\obj\Debug\DbAccess.csproj.CoreCompileInputs.cache
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\DbAccess\obj\Debug\DbAccess.dll
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\DbAccess\obj\Debug\DbAccess.pdb

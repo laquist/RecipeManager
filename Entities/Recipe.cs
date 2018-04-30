@@ -12,7 +12,7 @@ namespace Entities
         private List<Ingredient> ingredients;
         private string name;
         private int persons;
-        private readonly int ID; //Skriver dette med uppercase for at kunne skelne mellem ID og id i constructoren
+        private readonly int Id; //Skriver dette med stort I for at kunne skelne mellem id i constructoren
 
 
         //Properties
@@ -31,6 +31,10 @@ namespace Entities
             get { return persons; }
             set { persons = value; }
         }
+        public int ID
+        {
+            get { return Id; }
+        }
 
 
         public Recipe(string name, List<Ingredient> ingredients)
@@ -43,7 +47,7 @@ namespace Entities
         {
             Name = name;
             Ingredients = ingredients;
-            ID = id;
+            Id = id;
         }
 
         //public List<IngredientType> GetIngredienTypes()

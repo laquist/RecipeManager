@@ -1,0 +1,6 @@
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\Services\bin\Debug\Services.dll
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\Services\bin\Debug\Services.pdb
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\Services\obj\Debug\Services.csprojResolveAssemblyReference.cache
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\Services\obj\Debug\Services.csproj.CoreCompileInputs.cache
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\Services\obj\Debug\Services.dll
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\Services\obj\Debug\Services.pdb

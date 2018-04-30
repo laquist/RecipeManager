@@ -9,7 +9,7 @@ namespace Entities
     public class Ingredient
     {
         //Fields
-        private readonly int ID; //Skriver dette med uppercase for at kunne skelne mellem ID og id i constructoren
+        private readonly int Id; //Skriver dette med stort I for at kunne skelne mellem id i constructoren
         private IngredientType type;
         private string name;
         private decimal price;
@@ -30,7 +30,11 @@ namespace Entities
         {
             get { return price; }
             set { price = value; }
-        } 
+        }
+        public int ID
+        {
+            get { return Id; }
+        }
 
 
         public Ingredient(decimal price, string name, IngredientType type)
@@ -45,7 +49,7 @@ namespace Entities
             Price = price;
             Name = name;
             Type = type;
-            ID = id;
+            Id = id;
         }
 
         public override string ToString()

@@ -31,7 +31,11 @@ namespace EksamenM2E2017.Opskrifter
         {
             InitializeComponent();
 
-            // ?????????????? Dette stod der allerede ?????????????
+            DBHandler dbHandler = new DBHandler(conString);
+
+            ListBoxRecipeList.ItemsSource = dbHandler.GetAllRecipies();
+
+            #region TEMP - StartCode
 
             //List<TestIngredientClass> ingredients = new List<TestIngredientClass>();
 
@@ -45,7 +49,7 @@ namespace EksamenM2E2017.Opskrifter
             //ingredients.Add(new TestIngredientClass(IngredientType.Mejeriprodukter, "Gær", 20));
             //ingredients.Add(new TestIngredientClass(IngredientType.Mejeriprodukter, "Mælk", 12));
             //ingredients.Add(new TestIngredientClass(IngredientType.Kolonial, "Sukker", 30));
-            
+
             //DtgAllIngredients.ItemsSource = ingredients;
 
             //List<TestRecipeClass> recipes = new List<TestRecipeClass>();
@@ -59,10 +63,8 @@ namespace EksamenM2E2017.Opskrifter
 
             //recipes.Add(new TestRecipeClass(brød, "Brød"));
 
-            //ListBoxRecipeList.ItemsSource = recipes;
-
-
-            DBHandler dbHandler = new DBHandler(conString);
+            //ListBoxRecipeList.ItemsSource = recipes; 
+            #endregion
         }
     }
 }
