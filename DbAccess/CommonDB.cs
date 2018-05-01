@@ -53,9 +53,10 @@ namespace DbAccess
                     SqlDataAdapter dataAdapter = new SqlDataAdapter(command);
                     dataAdapter.Fill(dataSet);
 
-                    return dataSet;
                 }
             }
+
+            return dataSet;
         }
     }
 }

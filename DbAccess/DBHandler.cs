@@ -25,7 +25,7 @@ namespace DbAccess
             foreach (DataRow row in dataRow)
             {
                 Ingredient ingredient = new Ingredient(
-                    row.Field<decimal>("IngredientPrice"),
+                    Convert.ToDecimal(row.Field<int>("IngredientPrice")),
                     row.Field<string>("IngredientName"),
                     (IngredientType)Enum.Parse(typeof(IngredientType), row.Field<string>("IngredientType").ToString()),
                     row.Field<int>("IngredientID")
@@ -44,7 +44,6 @@ namespace DbAccess
             DataRow[] recipeVsIngredientDataRow = recipeVsIngredientDataSet.Tables[0].Select();
 
             List<Ingredient> allIngredients = GetAllIngredients();
-            List<Ingredient> ingredientsInRecipe = new List<Ingredient>();
 
             //Recipes
             DataSet recipeDataSet = ExecuteQuery("SELECT * FROM Recipes;");
@@ -54,6 +53,8 @@ namespace DbAccess
 
             foreach (DataRow row in recipeDataRow)
             {
+                List<Ingredient> ingredientsInRecipe = new List<Ingredient>();
+
                 foreach (DataRow recipeVsIngredientRow in recipeVsIngredientDataRow)
                 {
                     if (row.Field<int>("RecipeID") == recipeVsIngredientRow.Field<int>("RecipeID"))
@@ -73,6 +74,7 @@ namespace DbAccess
                 Recipe recipe = new Recipe(
                     row.Field<string>("RecipeName"),
                     ingredientsInRecipe,
+                    row.Field<int>("RecipePersons"),
                     row.Field<int>("RecipeID")
                 );
 
@@ -139,9 +141,6 @@ namespace DbAccess
             return recipe;
         }
 
-
-        //Der mangler metoder til at oprette, inserte og update (Mangler i UML)
-
         public bool NewIngredient(Ingredient ingredient)
         {
             bool succeeded = ExecuteNonQuery(
@@ -191,7 +190,9 @@ namespace DbAccess
 
         public bool UpdateRecipe(Recipe recipe) // ******** FEJL - Denne skal på en måde løbe ALLE ingredienserne igennem individuelt også! Evt få den til at slette alle rækker der har med denne Recipe at gøre, og så bare lave dem på ny, med de nuværende Ingredienser?
         {
-            bool secondIsUpdated = false;
+            //RecipeVsIngredient
+            DataSet recipeVsIngredientDataSet = ExecuteQuery($"SELECT * FROM RecipeVsIngredient WHERE RecipeID='{recipe.ID}';");
+            DataRow[] recipeVsIngredientDataRow = recipeVsIngredientDataSet.Tables[0].Select();
 
             bool isUpdated = ExecuteNonQuery(
                 $"UPDATE Recipes" +
@@ -199,30 +200,35 @@ namespace DbAccess
                 $"WHERE RecipeID='{recipe.ID}';"
             );
 
-            //foreach (Ingredient ingredient in recipe.Ingredients)
-            //{
-            //    secondIsUpdated = ExecuteNonQuery(
-            //        $"UPDATE RecipeVsIngredient" +
-            //        $"SET Ingredient" +
-            //        $"WHERE RecipeID='{recipe.ID}';"
-            //    );
-            //}
+            //Lav to foreach løkker her? En der siger for hver ingredient i recipe.Ingredients listen, der skal den tjekke om den findes i DB og ellers Oprette den
+            //Og så nummer to som så bagefter tjekker om alle i DB der har dennes RecipeID, hvis de ikke findes i recipe.Ingredients listen, så skal de slettes.
 
-            if (isUpdated)
+            foreach (Ingredient ingredient in recipe.Ingredients)
             {
-                if (secondIsUpdated)
+                bool ingredientExist = ExecuteNonQuery(
+                    $"SELECT * FROM RecipeVsIngredient WHERE RecipeID='{recipe.ID}';"
+                );
+
+                if (!ingredientExist)
                 {
-                    return true;
-                }
-                else
-                {
-                    return false;
+                    ExecuteNonQuery(
+                        $"INSERT INTO RecipeVsIngredient VALUES ('{ingredient.ID}', '{recipe.ID}');"
+                    );
                 }
             }
-            else
+
+            //Tjekker om der findes nogle Ingrediensen i denne opskrift, som IKKE skal være der længere. Altså som ikke er i recipe.Ingredients listen længere.
+            foreach (DataRow row in recipeVsIngredientDataRow)
             {
-                return false;
+                if (!recipe.Ingredients.Any(ingredient => ingredient.ID == row.Field<int>("IngredientID")))
+                {
+                    ExecuteNonQuery(
+                        $"DELETE FROM RecipeVsIngredient WHERE IngredientID='{row.Field<int>("IngredientID")}' AND RecipeID='{recipe.ID}';"
+                    );
+                }
             }
+
+            return isUpdated; //Skal den tjekke om de andre ting er gjort? De er jo ikke nødvendige for at det var en success. Det er jo kun hvis "der er behov" den gør de ting.
         }
 
         //EKSTRA Opgave

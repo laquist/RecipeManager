@@ -37,16 +37,18 @@ namespace Entities
         }
 
 
-        public Recipe(string name, List<Ingredient> ingredients)
+        public Recipe(string name, List<Ingredient> ingredients, int persons)
         {
             Name = name;
             Ingredients = ingredients;
+            Persons = persons;
         }
 
-        public Recipe(string name, List<Ingredient> ingredients, int id)
+        public Recipe(string name, List<Ingredient> ingredients, int persons, int id)
         {
             Name = name;
             Ingredients = ingredients;
+            Persons = persons;
             Id = id;
         }
 

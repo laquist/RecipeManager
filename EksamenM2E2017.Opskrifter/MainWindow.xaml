@@ -14,9 +14,7 @@
                         <ColumnDefinition Width="321*"/>
                         <ColumnDefinition Width="259*"/>
                     </Grid.ColumnDefinitions>
-                    <ListBox x:Name="ListBoxRecipeList" HorizontalAlignment="Left" Height="271" Margin="10,41,0,0" VerticalAlignment="Top" Width="188">
-
-                    </ListBox>
+                    <ListBox x:Name="ListBoxRecipeList" HorizontalAlignment="Left" Height="271" Margin="10,41,0,0" VerticalAlignment="Top" Width="188" SelectionChanged="ListBoxRecipeList_SelectionChanged"/>
                     <Label Content="Opskrifter:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <GroupBox Header="Detaljer" HorizontalAlignment="Left" Height="280" Margin="214,32,0,0" VerticalAlignment="Top" Width="356" Grid.ColumnSpan="2">
                         <Grid HorizontalAlignment="Left" Height="250" Margin="0,10,-3.6,-2.4" VerticalAlignment="Top" Width="346">
@@ -24,14 +22,25 @@
                             <Label Content="Personer:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Right"/>
                             <Label Content="Ingredienser:" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="100"/>
                             <DataGrid x:Name="DtgIngredientsInSelectedRecipe" HorizontalAlignment="Left" Height="147" Margin="10,93,0,0" VerticalAlignment="Top" Width="326" IsReadOnly="True"/>
-                            <TextBox x:Name="TxtBoxPersons" HorizontalAlignment="Left" Height="23" Margin="115,39,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="221" VerticalContentAlignment="Center"/>
-                            <TextBox x:Name="TxtBoxPrice" HorizontalAlignment="Left" Height="24" Margin="115,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="221" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="TxtBoxPersons" HorizontalAlignment="Left" Height="23" Margin="115,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="221" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="TxtBoxPrice" HorizontalAlignment="Left" Height="24" Margin="115,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="221" VerticalContentAlignment="Center"/>
                         </Grid>
                     </GroupBox>
                 </Grid>
             </TabItem>
             <TabItem x:Name="TabIngredients" Header="Ingredienser">
-                <Grid Background="#FEFEFE"/>
+                <Grid Background="#FEFEFE">
+                    <Label Content="Ingredienser:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Ny Ingrediens:" HorizontalAlignment="Left" Margin="234,41,0,0" VerticalAlignment="Top"/>
+                    <DataGrid x:Name="DtgIngredients" HorizontalAlignment="Left" Height="272" VerticalAlignment="Top" Width="219" Margin="10,41,0,0"/>
+                    <Label Content="Navn:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="242,70,0,0"/>
+                    <Label Content="Pris:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="251,101,0,0"/>
+                    <Label Content="Type:" HorizontalAlignment="Left" Margin="245,132,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="TbxIngredientName" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="287,73,0,0"/>
+                    <TextBox x:Name="TbxIngredientPrice" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="287,104,0,0"/>
+                    <ComboBox x:Name="CbxIngredientType" HorizontalAlignment="Left" Margin="287,135,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Button x:Name="btnNewIngredient" Content="Insend ny ingrediens" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="287,170,0,0" Click="btnNewIngredient_Click"/>
+                </Grid>
             </TabItem>
             <TabItem x:Name="TabNewRecipe" Header="Ny Opskrift">
                 <Grid Background="#FEFEFE">
@@ -42,12 +51,12 @@
                     <Label Content="Liste af Ingredienser" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" Width="250"/>
                     <DataGrid x:Name="DtgAllIngredients" HorizontalAlignment="Left" Height="209" Margin="10,103,0,0" VerticalAlignment="Top" Width="250" IsReadOnly="True" />
                     <DataGrid x:Name="DtgItemsInNewRecipe" HorizontalAlignment="Left" Height="179" Margin="298,103,0,0" VerticalAlignment="Top" Width="272" IsReadOnly="True"/>
-                    <Button x:Name="BtnAddNewRecipe" Content="Tilføj" HorizontalAlignment="Left" Margin="298,290,0,0" VerticalAlignment="Top" Width="75" Height="22"/>
+                    <Button x:Name="BtnAddNewRecipe" Content="Tilføj" HorizontalAlignment="Left" Margin="298,290,0,0" VerticalAlignment="Top" Width="75" Height="22" Click="BtnAddNewRecipe_Click"/>
                     <Label Content="Total Pris:" HorizontalAlignment="Left" Margin="378,287,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="LblTotalPrice" Content="0" HorizontalAlignment="Left" Margin="443,287,0,0" VerticalAlignment="Top" Width="127" HorizontalContentAlignment="Right"/>
                     <Label Content="Ingredienser i opskriften" HorizontalAlignment="Left" Margin="298,72,0,0" VerticalAlignment="Top" Width="272"/>
-                    <Button x:Name="BtnMoveItemLeft" Content="&lt;" HorizontalAlignment="Left" Margin="265,180,0,0" VerticalAlignment="Top" Width="28" RenderTransformOrigin="0.519,1.521"/>
-                    <Button x:Name="BtnMoveItemRight" Content="&gt;" HorizontalAlignment="Left" Margin="265,204,0,0" VerticalAlignment="Top" Width="28"/>
+                    <Button x:Name="BtnMoveItemLeft" Content="&lt;" HorizontalAlignment="Left" Margin="265,180,0,0" VerticalAlignment="Top" Width="28" RenderTransformOrigin="0.519,1.521" Click="BtnMoveItemLeft_Click"/>
+                    <Button x:Name="BtnMoveItemRight" Content="&gt;" HorizontalAlignment="Left" Margin="265,204,0,0" VerticalAlignment="Top" Width="28" Click="BtnMoveItemRight_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>
