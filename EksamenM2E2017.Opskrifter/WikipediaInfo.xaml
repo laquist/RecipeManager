@@ -1,0 +1,15 @@
+﻿<Window x:Class="EksamenM2E2017.Opskrifter.WikipediaInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EksamenM2E2017.Opskrifter"
+        mc:Ignorable="d"
+        Title="WikipediaInfo" Height="426" Width="300">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Height="2" Margin="-95,108,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="6"/>
+        <TextBlock x:Name="TblWikiContent" HorizontalAlignment="Left" Margin="10,41,0,10" TextWrapping="Wrap" Width="272"/>
+        <Label Content="Wikipedia:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+
+    </Grid>
+</Window>

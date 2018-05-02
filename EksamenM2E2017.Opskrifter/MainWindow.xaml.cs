@@ -191,5 +191,28 @@ namespace EksamenM2E2017.Opskrifter
         {
 
         }
+
+        private void BtnWikipediaSummary_Click(object sender, RoutedEventArgs e)
+        {
+            if (DtgIngredients.SelectedItem != null)
+            {
+                Ingredient selectedIngredient = DtgIngredients.SelectedItem as Ingredient;
+
+                try
+                {
+                    WikipediaInfo wikipediaInfo = new WikipediaInfo(selectedIngredient.Name);
+
+                    wikipediaInfo.Show();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Der skete en fejl. Måske findes siden ikke på Wikipedia", "Fejl!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Du skal først vælge den ingrediens som du ønsker et summary af!", "Fejl!");
+            }
+        }
     }
 }

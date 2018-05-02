@@ -34,3 +34,7 @@ C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesnin
 C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\EksamenM2E2017.Opskrifter\obj\Debug\EksamenM2E2017.Opskrifter.csproj.CoreCompileInputs.cache
 C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\EksamenM2E2017.Opskrifter\obj\Debug\EksamenM2E2017.Opskrifter.exe
 C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\EksamenM2E2017.Opskrifter\obj\Debug\EksamenM2E2017.Opskrifter.pdb
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\EksamenM2E2017.Opskrifter\bin\Debug\Newtonsoft.Json.dll
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\EksamenM2E2017.Opskrifter\bin\Debug\Newtonsoft.Json.xml
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\EksamenM2E2017.Opskrifter\obj\Debug\WikipediaInfo.g.cs
+C:\Users\lars9865\Desktop\S2 Eksamen - Recipe Manager (26-04-2018)\Opgaveloesning\RecipeManager\EksamenM2E2017.Opskrifter\obj\Debug\WikipediaInfo.baml

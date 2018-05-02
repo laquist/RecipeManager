@@ -52,10 +52,17 @@ namespace Entities
             Id = id;
         }
 
-        //public List<IngredientType> GetIngredienTypes()
-        //{
+        public List<IngredientType> GetIngredienTypes()
+        {
+            List<IngredientType> typeList = new List<IngredientType>();
 
-        //}
+            foreach (Ingredient ingredient in Ingredients)
+            {
+                typeList.Add(ingredient.Type);
+            }
+
+            return typeList;
+        }
 
         public decimal GetPrice()
         {
