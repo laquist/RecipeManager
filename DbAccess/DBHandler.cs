@@ -110,7 +110,7 @@ namespace DbAccess
             List<Ingredient> ingredientsInRecipe = new List<Ingredient>();
 
             //Recipe
-            DataSet dataSet = ExecuteQuery($"SELECT * FROM Recipes WHERE RecipeName='{name}';");
+            DataSet dataSet = ExecuteQuery($"SELECT * FROM Recipes WHERE RecipeName LIKE '%{name}';");
             DataRow[] dataRow = dataSet.Tables[0].Select();
             DataRow row = dataRow[0];
 
@@ -135,6 +135,7 @@ namespace DbAccess
             Recipe recipe = new Recipe(
             row.Field<string>("RecipeName"),
             ingredientsInRecipe,
+            row.Field<int>("RecipePersons"),
             row.Field<int>("RecipeID")
             );
 
@@ -155,13 +156,17 @@ namespace DbAccess
             bool secondSucceeded = false;
 
             bool succeeded = ExecuteNonQuery(
-                $"INSERT INTO Recipes VALUES ('{recipe.Name}');"
+                $"INSERT INTO Recipes VALUES ('{recipe.Name}', {recipe.Persons});"
             );
+
+            Recipe addedRecipe = GetRecipeByName(recipe.Name);
+
+            //EFter at den er blevet oprettet i Recipes, så skal jeg hente data ud igen, for at finde ud af hvilket RecipeID som databasen gav! og først her kan jeg så tilføje til RecipeVsIngredient
 
             foreach (Ingredient ingredient in recipe.Ingredients)
             {
                secondSucceeded = ExecuteNonQuery(
-                $"INSERT INTO RecipeVsIngredient VALUES ('{ingredient.ID}', '{recipe.ID}');"    
+                $"INSERT INTO RecipeVsIngredient VALUES ({ingredient.ID}, {addedRecipe.ID});"    
                 );
             };
 

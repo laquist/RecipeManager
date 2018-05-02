@@ -22,8 +22,8 @@
                             <Label Content="Personer:" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="100" HorizontalContentAlignment="Right"/>
                             <Label Content="Ingredienser:" HorizontalAlignment="Left" Margin="10,67,0,0" VerticalAlignment="Top" Width="100"/>
                             <DataGrid x:Name="DtgIngredientsInSelectedRecipe" HorizontalAlignment="Left" Height="147" Margin="10,93,0,0" VerticalAlignment="Top" Width="326" IsReadOnly="True"/>
-                            <TextBox x:Name="TxtBoxPersons" HorizontalAlignment="Left" Height="23" Margin="115,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="221" VerticalContentAlignment="Center"/>
-                            <TextBox x:Name="TxtBoxPrice" HorizontalAlignment="Left" Height="24" Margin="115,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="221" VerticalContentAlignment="Center"/>
+                            <TextBox x:Name="TxtBoxPersons" HorizontalAlignment="Left" Height="23" Margin="115,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="221" VerticalContentAlignment="Center" IsReadOnly="true"/>
+                            <TextBox x:Name="TxtBoxPrice" HorizontalAlignment="Left" Height="24" Margin="115,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="221" VerticalContentAlignment="Center" IsReadOnly="true"/>
                         </Grid>
                     </GroupBox>
                 </Grid>

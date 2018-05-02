@@ -26,7 +26,7 @@ namespace EksamenM2E2017.Opskrifter
         DBHandler dbHandler;
 
         //Ny opskrift
-        List<Ingredient> listOfAllIngredients;
+        List<Ingredient> listOfAvailableIngredients;
         List<Ingredient> ingredientsInNewRecipe = new List<Ingredient>();
 
         //Connection string:
@@ -40,18 +40,16 @@ namespace EksamenM2E2017.Opskrifter
             dbHandler = new DBHandler(conString);
 
             //Opskrifter fanen
-            ListBoxRecipeList.ItemsSource = dbHandler.GetAllRecipies();
             //ShowRecipies();
+            UpdateRecipeList();
 
             //Ingredienser fanen
             DtgIngredients.ItemsSource = dbHandler.GetAllIngredients();
             CbxIngredientType.ItemsSource = Enum.GetValues(typeof(IngredientType)).Cast<IngredientType>();
 
             //Ny Opskrift fanen
-            DtgAllIngredients.ItemsSource = dbHandler.GetAllIngredients();
-            DtgItemsInNewRecipe.ItemsSource = ingredientsInNewRecipe;
-
-            listOfAllIngredients = dbHandler.GetAllIngredients();
+            listOfAvailableIngredients = dbHandler.GetAllIngredients();
+            UpdateDataInNewRecipe();
 
 
             #region TEMP - StartCode
@@ -136,6 +134,31 @@ namespace EksamenM2E2017.Opskrifter
             DtgIngredientsInSelectedRecipe.ItemsSource = recipe.Ingredients;
         }
 
+        public void UpdateRecipeList()
+        {
+            ListBoxRecipeList.ItemsSource = null;
+            ListBoxRecipeList.ItemsSource = dbHandler.GetAllRecipies();
+        }
+
+        public void UpdateDataInNewRecipe()
+        {
+            //Left box
+            DtgAllIngredients.ItemsSource = null;
+            DtgAllIngredients.ItemsSource = listOfAvailableIngredients;
+
+            //Right box
+            DtgItemsInNewRecipe.ItemsSource = null;
+            DtgItemsInNewRecipe.ItemsSource = ingredientsInNewRecipe;
+
+            //Her skal den også update Total Pris nede i hjørnet
+            decimal totalPrice = 0;
+            foreach (Ingredient ingredient in ingredientsInNewRecipe)
+            {
+                totalPrice = totalPrice + ingredient.Price;
+            }
+            LblTotalPrice.Content = totalPrice;
+        }
+
         private void ListBoxRecipeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (ListBoxRecipeList.SelectedItem != null)
@@ -146,9 +169,9 @@ namespace EksamenM2E2017.Opskrifter
 
         private void btnNewIngredient_Click(object sender, RoutedEventArgs e)
         {
-            if (TbxIngredientName.Text != null && TbxIngredientName.Text != "")
+            if (!String.IsNullOrWhiteSpace(TbxIngredientName.Text))
             {
-                if (TbxIngredientPrice.Text != null && TbxIngredientPrice.Text != "")
+                if (!String.IsNullOrWhiteSpace(TbxIngredientPrice.Text))
                 {
                     if (CbxIngredientType.SelectedItem != null)
                     {
@@ -157,39 +180,109 @@ namespace EksamenM2E2017.Opskrifter
 
                         if (dbHandler.NewIngredient(newIngredient))
                         {
-                            MessageBox.Show("Success! Ingrediensen blev tilføjet");
+                            MessageBox.Show("Success! Ingrediensen blev tilføjet", "Success!");
                             DtgIngredients.ItemsSource = dbHandler.GetAllIngredients();
 
                         }
                         else
                         {
-                            MessageBox.Show("Fejl! - Der skete en fejl. Ingrediensen blev ikke tilføjet");
+                            MessageBox.Show("Fejl! - Der skete en fejl. Ingrediensen blev ikke tilføjet", "Fejl!");
                         } 
                     }
+                    else
+                    {
+                        MessageBox.Show("Du skal vælge en type!", "Fejl!");
+                    }
                 }
+                else
+                {
+                    MessageBox.Show("Du skal angive en pris!", "Fejl!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Du skal angive et navn!", "Fejl!");
             }
         }
 
         private void BtnAddNewRecipe_Click(object sender, RoutedEventArgs e)
         {
-            List<Ingredient> newRecipeIngredients = new List<Ingredient>();
-            Recipe newRecipe = new Recipe(TxtBoxRecipeName.Text, newRecipeIngredients, int.Parse(TxtBoxCountOfPersonsInRecipe.Text));
+            if (!String.IsNullOrWhiteSpace(TxtBoxRecipeName.Text))
+            {
+                if (!String.IsNullOrWhiteSpace(TxtBoxCountOfPersonsInRecipe.Text))
+                {
+                    if (ingredientsInNewRecipe.Count != 0)
+                    {
+                        try
+                        {
+                            Recipe newRecipe = new Recipe(TxtBoxRecipeName.Text, ingredientsInNewRecipe, int.Parse(TxtBoxCountOfPersonsInRecipe.Text));
 
-            dbHandler.NewRecipe(newRecipe);
+                            dbHandler.NewRecipe(newRecipe);
+
+                            MessageBox.Show("Opskriften blev tilføjet!", "Success!");
+                            TxtBoxRecipeName.Clear();
+                            ingredientsInNewRecipe.Clear();
+                            TxtBoxCountOfPersonsInRecipe.Clear();
+
+                            listOfAvailableIngredients = dbHandler.GetAllIngredients();
+                            UpdateDataInNewRecipe();
+                            UpdateRecipeList();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Der opstod en fejl! \n{ex.Message}", "Fejl");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Du kan ikke oprette en opskrift uden nogle ingredienser!", "Fejl!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Du skal angive hvor mange personer opskriften er til!", "Fejl!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Du skal give opskriften et navn!", "Fejl!");
+            }
+
+
+            //Update Opskrifter fanens data med den nye opskrift
+            //Clear alle felter i Ny opskrift fanen
+
+            //Tjek om input er null osv
         }
 
         private void BtnMoveItemRight_Click(object sender, RoutedEventArgs e)
         {
-            ingredientsInNewRecipe.Add(DtgAllIngredients.SelectedItem as Ingredient);
-            listOfAllIngredients.Remove(DtgAllIngredients.SelectedItem as Ingredient);
+            if (DtgAllIngredients.SelectedItem != null)
+            {
+                ingredientsInNewRecipe.Add(DtgAllIngredients.SelectedItem as Ingredient);
+                listOfAvailableIngredients.Remove(DtgAllIngredients.SelectedItem as Ingredient);
 
-            DtgAllIngredients.ItemsSource = listOfAllIngredients;
-            DtgItemsInNewRecipe.ItemsSource = ingredientsInNewRecipe;
+                UpdateDataInNewRecipe();
+            }
+            else
+            {
+                MessageBox.Show("Du skal først vælge den ingrediens som du vil tilføje!", "Fejl!");
+            }
         }
 
         private void BtnMoveItemLeft_Click(object sender, RoutedEventArgs e)
         {
+            if (DtgItemsInNewRecipe.SelectedItem != null)
+            {
+                listOfAvailableIngredients.Add(DtgItemsInNewRecipe.SelectedItem as Ingredient);
+                ingredientsInNewRecipe.Remove(DtgItemsInNewRecipe.SelectedItem as Ingredient);
 
+                UpdateDataInNewRecipe();
+            }
+            else
+            {
+                MessageBox.Show("Du skal først vælge den ingrediens som du vil fjerne!", "Fejl!");
+            }
         }
 
         private void BtnWikipediaSummary_Click(object sender, RoutedEventArgs e)

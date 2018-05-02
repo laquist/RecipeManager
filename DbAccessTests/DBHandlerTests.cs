@@ -12,6 +12,18 @@ namespace DbAccess.Tests
     [TestClass()]
     public class DBHandlerTests
     {
+        private static string conString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=RecipeManager;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        DBHandler dbHandler = new DBHandler(conString);
+
+        //Arrange
+
+
+        //Act
+
+
+        //Assert
+
+
         [TestMethod()]
         public void GetAllIngredientsTest()
         {
@@ -23,7 +35,71 @@ namespace DbAccess.Tests
             List<Ingredient> ingredients = handler.GetAllIngredients();
 
             //Assert
-            //Assert.
+
+        }
+
+        [TestMethod()]
+        public void DBHandlerTest()
+        {
+            //Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void GetAllIngredientsTest1()
+        {
+            //Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void GetAllRecipiesTest()
+        {
+            //Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void GetIngredientByNameTest()
+        {
+            //Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void GetRecipeByNameTest()
+        {
+            //Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void NewIngredientTest()
+        {
+            //Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void NewRecipeTest()
+        {
+            //Arrange
+            List<Ingredient> recipeIngredients = dbHandler.GetAllIngredients();
+            Recipe recipe = new Recipe("TestRecipe48716622", recipeIngredients, 4);
+
+            //Act
+            bool succeeded = dbHandler.NewRecipe(recipe);
+
+            //Assert
+            Assert.AreEqual(succeeded, true);
+
+            dbHandler.DeleteRecipe(recipe);
+        }
+
+        [TestMethod()]
+        public void UpdateRecipeTest()
+        {
+            //Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void DeleteRecipeTest()
+        {
+            //Assert.Fail();
         }
     }
 }
