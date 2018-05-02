@@ -193,15 +193,15 @@ namespace DbAccess
 
         //}
 
-        public bool UpdateRecipe(Recipe recipe) // ******** FEJL - Denne skal på en måde løbe ALLE ingredienserne igennem individuelt også! Evt få den til at slette alle rækker der har med denne Recipe at gøre, og så bare lave dem på ny, med de nuværende Ingredienser?
+        public bool UpdateRecipe(Recipe recipe) 
         {
             //RecipeVsIngredient
             DataSet recipeVsIngredientDataSet = ExecuteQuery($"SELECT * FROM RecipeVsIngredient WHERE RecipeID='{recipe.ID}';");
             DataRow[] recipeVsIngredientDataRow = recipeVsIngredientDataSet.Tables[0].Select();
 
             bool isUpdated = ExecuteNonQuery(
-                $"UPDATE Recipes" +
-                $"SET RecipeName='{recipe.Name}'" +
+                $"UPDATE Recipes " +
+                $"SET RecipeName='{recipe.Name}', RecipePersons={recipe.Persons}" +
                 $"WHERE RecipeID='{recipe.ID}';"
             );
 
@@ -242,23 +242,19 @@ namespace DbAccess
 
         //}
 
-        public bool DeleteRecipe(Recipe recipe)
+        public bool DeleteRecipe(int id)
         {
-            bool secondIsDeleted = false;
-
             bool isDeleted = ExecuteNonQuery(
-                $"DELETE FROM Recipes WHERE RecipeID='{recipe.ID}';"
+                $"DELETE FROM RecipeVsIngredient WHERE RecipeID='{id}';"
             );
 
-            foreach (Ingredient ingredient in recipe.Ingredients)
-            {
-                secondIsDeleted = ExecuteNonQuery(
-                    $"DELETE FROM RecipeVsIngredient WHERE RecipeID='{recipe.ID}';"
-                );
-            }
 
             if (isDeleted)
             {
+                bool secondIsDeleted = ExecuteNonQuery(
+                    $"DELETE FROM Recipes WHERE RecipeID='{id}';"
+                );
+
                 if (secondIsDeleted)
                 {
                     return true;

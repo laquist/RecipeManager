@@ -86,20 +86,43 @@ namespace DbAccess.Tests
 
             //Assert
             Assert.AreEqual(succeeded, true);
-
-            dbHandler.DeleteRecipe(recipe);
         }
 
         [TestMethod()]
         public void UpdateRecipeTest()
         {
-            //Assert.Fail();
+            //Arrange
+            List<Ingredient> recipeIngredients = dbHandler.GetAllIngredients();
+            Recipe recipe = new Recipe("TestRecipe325254652", recipeIngredients, 4);
+            dbHandler.NewRecipe(recipe);
+
+            Recipe recipeWithID = dbHandler.GetRecipeByName(recipe.Name);
+
+            recipeWithID.Persons = 8;
+
+            //Act
+            dbHandler.UpdateRecipe(recipeWithID);
+
+            Recipe updatedRecipe = dbHandler.GetRecipeByName(recipeWithID.Name);
+
+            //Assert
+            Assert.AreEqual(updatedRecipe.Persons, 8);
         }
 
         [TestMethod()]
         public void DeleteRecipeTest()
         {
-            //Assert.Fail();
+            //Arrange
+            List<Ingredient> recipeIngredients = dbHandler.GetAllIngredients();
+            Recipe recipe = new Recipe("TestRecipe6585865", recipeIngredients, 4);
+            dbHandler.NewRecipe(recipe);
+
+            recipe = dbHandler.GetRecipeByName(recipe.Name);
+            //Act
+            bool isDeleted = dbHandler.DeleteRecipe(recipe.ID);
+
+            //Assert
+            Assert.AreEqual(isDeleted, true);
         }
     }
 }

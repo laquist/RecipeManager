@@ -183,6 +183,12 @@ namespace EksamenM2E2017.Opskrifter
                             MessageBox.Show("Success! Ingrediensen blev tilføjet", "Success!");
                             DtgIngredients.ItemsSource = dbHandler.GetAllIngredients();
 
+                            listOfAvailableIngredients = dbHandler.GetAllIngredients();
+                            UpdateDataInNewRecipe();
+
+                            TbxIngredientName.Clear();
+                            TbxIngredientPrice.Clear();
+                            CbxIngredientType.SelectedItem = null;
                         }
                         else
                         {
